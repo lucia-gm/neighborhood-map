@@ -6,13 +6,20 @@ class MapContainer extends Component {
     return (
       <Map 
         google={this.props.google} 
-        zoom={16}
-        style={{width: '100%', height: '100%'}}
+        zoom={15}
+        style={{width: '100vw', height: '100vh'}}
         initialCenter={{
           lat: 42.8801996,
           lng: -8.5491475
         }}>
- 
+      
+      {this.props.places.map( place => 
+        <Marker 
+          key = {place.id}
+          name = {place.name}
+          position = {{lat: place.lat, lng: place.lng}}
+          />
+      )}
         
       </Map>
     );
