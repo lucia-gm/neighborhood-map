@@ -17,9 +17,9 @@ class App extends Component {
   ]
 
   state = {
-    locations:this.pointsOfInterest,
-
+    locations: this.pointsOfInterest,
   }
+  
   render() {
     return (
       <div className="App">

@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
  
 class MapContainer extends Component {
+  state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {}
+  }
+
+  onMarkerClick = (place, marker, e) => {
+    this.setState({
+      selectedPlace: place,
+      activeMarker: marker,
+      showingInfoWindow: true
+    })
+  }
+
   render() {
     return (
       <Map 
@@ -18,9 +32,16 @@ class MapContainer extends Component {
           key = {place.id}
           name = {place.name}
           position = {{lat: place.lat, lng: place.lng}}
-          />
+          onClick = {this.onMarkerClick}
+        />
       )}
-        
+      
+      <InfoWindow 
+        marker={this.state.activeMarker}
+        visible= {this.state.showingInfoWindow}>
+          <div> This is an InfoWindow</div>
+      </InfoWindow>
+      
       </Map>
     );
   }
