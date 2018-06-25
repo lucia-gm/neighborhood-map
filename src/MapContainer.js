@@ -8,6 +8,7 @@ class MapContainer extends Component {
     selectedPlace: {}
   }
 
+  // If marker is clicked, activate marker and display infoWindow
   onMarkerClick = (place, marker, e) => {
     this.setState({
       selectedPlace: place,
@@ -16,10 +17,21 @@ class MapContainer extends Component {
     })
   }
 
+  // Close the infoWindow and deactivate the activeMarker if clicked anywhere on the map
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  };
+
   render() {
     return (
       <Map 
         google={this.props.google} 
+        onClick={this.onMapClicked}
         zoom={15}
         style={{width: '100vw', height: '100vh'}}
         initialCenter={{
@@ -29,16 +41,16 @@ class MapContainer extends Component {
       
       {this.props.places.map( place => 
         <Marker 
-          key = {place.id}
-          name = {place.name}
-          position = {{lat: place.lat, lng: place.lng}}
-          onClick = {this.onMarkerClick}
+          key={place.id}
+          name={place.name}
+          position={{lat: place.lat, lng: place.lng}}
+          onClick={this.onMarkerClick}
         />
       )}
       
       <InfoWindow 
         marker={this.state.activeMarker}
-        visible= {this.state.showingInfoWindow}>
+        visible={this.state.showingInfoWindow}>
           <div> This is an InfoWindow</div>
       </InfoWindow>
       
