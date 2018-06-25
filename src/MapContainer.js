@@ -45,6 +45,7 @@ class MapContainer extends Component {
           name={place.name}
           position={{lat: place.lat, lng: place.lng}}
           onClick={this.onMarkerClick}
+          animation={this.props.google.maps.Animation.DROP}
         />
       )}
       
