@@ -19,11 +19,22 @@ class App extends Component {
   state = {
     locations: this.pointsOfInterest,
   }
-  
+
+  onMenuClick = () => {
+    const menu = document.getElementById('burger-icon')
+    menu.classList.toggle("change")
+  }
+ 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="app-header">
+          <div id="burger-icon" onClick={this.onMenuClick}>
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          <h1 className="app-title">Explore Santiago</h1>
         </header>
         <MapContainer places={this.state.locations}/>
       </div>
