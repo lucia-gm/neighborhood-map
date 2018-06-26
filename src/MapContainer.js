@@ -5,7 +5,8 @@ class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}
+    selectedPlace: {},
+    markersAnimation: this.props.google.maps.Animation.DROP
   }
 
   // If marker is clicked, activate marker and display infoWindow
@@ -13,7 +14,8 @@ class MapContainer extends Component {
     this.setState({
       selectedPlace: place,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      markersAnimation: null
     })
   }
 
@@ -47,7 +49,7 @@ class MapContainer extends Component {
           name={place.name}
           position={{lat: place.lat, lng: place.lng}}
           onClick={this.onMarkerClick}
-          animation={this.props.google.maps.Animation.DROP}
+          animation={this.state.markersAnimation}
         />
       )}
       
