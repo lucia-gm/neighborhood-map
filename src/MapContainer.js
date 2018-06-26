@@ -30,10 +30,12 @@ class MapContainer extends Component {
   render() {
     return (
       <Map 
+        className="map"
         google={this.props.google} 
         onClick={this.onMapClicked}
         zoom={15}
-        style={{width: '100vw', height: '100vh'}}
+        style={{width: '100%', height: '100%', position: 'relative' }}
+        containerStyle={{ height: 'auto', position: 'relative'}}
         initialCenter={{
           lat: 42.8801996,
           lng: -8.5491475

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Sidebar from './Sidebar'
 import MapContainer from './MapContainer';
 import './App.css';
 
@@ -22,7 +23,9 @@ class App extends Component {
 
   onMenuClick = () => {
     const menu = document.getElementById('burger-icon')
+    const sidebar = document.getElementById('sidebar')
     menu.classList.toggle("change")
+    sidebar.classList.toggle("open")
   }
  
   render() {
@@ -30,13 +33,18 @@ class App extends Component {
       <div className="App">
         <header className="app-header">
           <div id="burger-icon" onClick={this.onMenuClick}>
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+            <div className="bar1"></div>
+            <div className="bar2"></div>
+            <div className="bar3"></div>
           </div>
           <h1 className="app-title">Explore Santiago</h1>
         </header>
-        <MapContainer places={this.state.locations}/>
+        <main>
+          <Sidebar places={this.state.locations}/>
+          <div className="map-container">
+            <MapContainer places={this.state.locations}/> 
+          </div>
+        </main>
       </div>
     );
   }

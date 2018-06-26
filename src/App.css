@@ -1,17 +1,22 @@
+* { 
+  box-sizing: border-box;
+}
+
+
+/* Header */
 .app-header {
   height: 60px;
-  width: 100%;
-  background-color: #13293d;
+  background-color: #0d1c2b;
 }
 
 #burger-icon {
-    display: inline-block;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-    padding: 10px 20px;
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  padding: 11px 20px;
 }
 
 .bar1, .bar2, .bar3 {
@@ -40,4 +45,61 @@
   text-align: center;
   margin: 0;
   padding-top: 10px;
+}
+
+
+/* Main */
+main {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+#sidebar {
+  width: 280px;
+  background-color: #13293d;
+  display: none;
+  overflow-y: scroll;
+}  
+
+#sidebar.open {
+  display: block;
+}
+
+.filter {
+  margin: 20px;
+}
+
+.filter select {
+  height: 30px;
+  width: 200px;
+  font-size: 14px;
+}
+
+.places-list {
+  padding: 0;
+}
+
+.places-list li {
+  color: #fcfcfc;
+  list-style-type: none;
+  padding: 20px;
+}
+
+.places-list li:hover {
+  cursor: pointer;
+  color: #028090;
+  font-weight: bold;
+}
+
+
+/* Map */
+
+.map-container {
+  flex-grow: 1;
+}
+
+.map {
+  height: calc(100vh - 60px) !important;
+
 }
