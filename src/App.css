@@ -96,8 +96,8 @@ main {
 
 .places-list li:hover {
   cursor: pointer;
-  color: #028090;
-  font-weight: bold;
+  background-color: #028090;
+  transition: all 0.3s ease-in;
 }
 
 
