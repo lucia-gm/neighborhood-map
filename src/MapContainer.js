@@ -17,6 +17,7 @@ class MapContainer extends Component {
       showingInfoWindow: true,
       markersAnimation: null
     })
+    console.log(this.state.selectedPlace.position)
   }
 
   // Close the infoWindow and deactivate the activeMarker if clicked anywhere on the map
@@ -30,6 +31,9 @@ class MapContainer extends Component {
   };
 
   render() {
+
+    const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
+    
     return (
       <Map 
         className="map"
@@ -39,24 +43,38 @@ class MapContainer extends Component {
         style={{width: '100%', height: '100%', position: 'relative' }}
         containerStyle={{ height: 'auto', position: 'relative'}}
         initialCenter={{
-          lat: 42.8801996,
-          lng: -8.5491475
+          lat: 42.880419,
+          lng: -8.545693
         }}>
       
-      {this.props.places.map( place => 
+      {this.props.places.map( place =>
         <Marker 
           key={place.id}
           name={place.name}
-          position={{lat: place.lat, lng: place.lng}}
+          position={place.location}
           onClick={this.onMarkerClick}
-          animation={this.state.markersAnimation}
+          animation={markersAnimation}
+          categories={(typeof(place.categories) !== 'undefined') ? place.categories[0] : null}
+          address={(typeof(place.location.address) !== 'undefined') ? place.location.address : null}
         />
       )}
       
       <InfoWindow 
-        marker={this.state.activeMarker}
-        visible={this.state.showingInfoWindow}>
-          <div> This is an InfoWindow</div>
+        marker={activeMarker}
+        visible={showingInfoWindow}>
+          <div className="info-window">
+            <h4 className="info-window-title">{selectedPlace.name}</h4>
+            <ul className="info-window-details">
+              {(selectedPlace.address) ? 
+                <li>{selectedPlace.address}</li>
+                :
+                <li>There is no address available</li>
+              }
+              {selectedPlace.categories && (
+                <li>Category: {selectedPlace.categories.name}</li>
+              )}
+            </ul>
+          </div>
       </InfoWindow>
       
       </Map>

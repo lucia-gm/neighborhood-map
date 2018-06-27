@@ -1,7 +1,16 @@
+/* Global styles */
 * { 
   box-sizing: border-box;
 }
 
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
 
 /* Header */
 .app-header {
@@ -82,7 +91,6 @@ main {
 
 .places-list li {
   color: #fcfcfc;
-  list-style-type: none;
   padding: 20px;
 }
 
@@ -101,5 +109,17 @@ main {
 
 .map {
   height: calc(100vh - 60px) !important;
+}
 
+.info-window {
+  width: 200px;
+  height: 80px;
+}
+
+.info-window-title {
+  margin: 5px 0;
+}
+
+.info-window-details li {
+  padding: 5px 0;
 }
