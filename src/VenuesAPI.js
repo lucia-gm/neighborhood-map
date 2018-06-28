@@ -1,4 +1,4 @@
-const api = "https://api.foursquare.com/v2/venues/"
+const api = "https://api.foursquare.com/v2/venues"
 
 const apiParams = {
  areaLatLng: "42.880419,-8.545693",
@@ -17,3 +17,8 @@ const apiParams = {
 export const getAll = () =>
   fetch(`${api}/search?ll=${apiParams.areaLatLng}&radius=${apiParams.radius}&intent=${apiParams.intent}&client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&categoryId=${apiParams.categoryId}`)
    .then(response => response.json())
+
+export const getPhoto = (venue) =>
+  fetch(`${api}/${venue}/photos?client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&limit=1`)
+    .then(response => response.json())
+    .then(data => data.response.photos.items[0]) //To get photo details

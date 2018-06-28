@@ -112,12 +112,22 @@ main {
 }
 
 .info-window {
-  width: 200px;
+  width: 250px;
   height: 80px;
+  display: flex;
+  margin-top: 4px;
+}
+
+.info-window img {
+  flex-shrink: 0;
+}
+
+.info-window-details {
+  padding-left: 10px;
 }
 
 .info-window-title {
-  margin: 5px 0;
+  margin: 2px 0;
 }
 
 .info-window-details li {

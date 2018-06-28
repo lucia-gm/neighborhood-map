@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import * as VenuesAPI from './VenuesAPI';
  
+let photo;
+
 class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
@@ -11,6 +14,11 @@ class MapContainer extends Component {
 
   // If marker is clicked, activate marker and display infoWindow
   onMarkerClick = (place, marker, e) => {
+    let venue = place.venueId
+    VenuesAPI.getPhoto(venue).then( response => {
+      photo = `${response.prefix}100x100${response.suffix}`
+    })
+
     this.setState({
       selectedPlace: place,
       activeMarker: marker,
@@ -28,7 +36,7 @@ class MapContainer extends Component {
         activeMarker: null
       })
     }
-  };
+  }
 
   render() {
 
@@ -51,6 +59,7 @@ class MapContainer extends Component {
         <Marker 
           key={place.id}
           name={place.name}
+          venueId={place.id}
           position={place.location}
           onClick={this.onMarkerClick}
           animation={markersAnimation}
@@ -63,17 +72,20 @@ class MapContainer extends Component {
         marker={activeMarker}
         visible={showingInfoWindow}>
           <div className="info-window">
-            <h4 className="info-window-title">{selectedPlace.name}</h4>
-            <ul className="info-window-details">
-              {(selectedPlace.address) ? 
-                <li>{selectedPlace.address}</li>
-                :
-                <li>There is no address available</li>
-              }
-              {selectedPlace.categories && (
-                <li>Category: {selectedPlace.categories.name}</li>
-              )}
-            </ul>
+            <img style={{ width: 80, height: 80, backgroundColor: '#f9f9f9'}} src={photo} alt={selectedPlace.name}/>
+            <div className="info-window-details">  
+              <h4 className="info-window-title">{selectedPlace.name}</h4>
+              <ul>
+                {(selectedPlace.address) ? 
+                  <li>{selectedPlace.address}</li>
+                  : 
+                  <li>There is no address available</li>
+                }
+                {selectedPlace.categories && (
+                  <li>Category: {selectedPlace.categories.name}</li>
+                )}
+              </ul>
+            </div>  
           </div>
       </InfoWindow>
       
