@@ -20,6 +20,7 @@ class App extends Component {
 
   state = {
     locations: this.pointsOfInterest,
+    filteredLocations: []
   }
 
   componentDidMount() {
@@ -39,8 +40,22 @@ class App extends Component {
     menu.classList.toggle("change")
     sidebar.classList.toggle("open")
   }
+
+  filterCategory = (event) => {
+    let filteredVenues
+    if (event === "all") {
+      filteredVenues = this.state.locations
+    } else {
+      filteredVenues = this.state.locations.filter( location => location.categories[0].id === event)
+      console.log(filteredVenues)
+    }
+    this.setState({filteredLocations : filteredVenues})
+   }
  
   render() {
+    const {filteredLocations, locations} = this.state
+    let places = (filteredLocations.length >= 1) ? filteredLocations : locations
+
     return (
       <div className="App">
         <header className="app-header">
@@ -52,9 +67,9 @@ class App extends Component {
           <h1 className="app-title">Explore Santiago</h1>
         </header>
         <main>
-          <Sidebar places={this.state.locations}/>
+          <Sidebar places={places} onUpdateCategory={this.filterCategory}/>
           <div className="map-container">
-            <MapContainer places={this.state.locations}/> 
+            <MapContainer places={places}/> 
           </div>
         </main>
       </div>

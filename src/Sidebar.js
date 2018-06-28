@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import {categories} from './VenuesAPI';
 
 class Sidebar extends Component {
   render() {
     return (
       <div id="sidebar">
         <div className="filter">  
-          <select defaultValue="none">
-            <option value="none" disabled>Select a category</option>
+          <select defaultValue="all" onChange={event => {
+            this.props.onUpdateCategory(event.target.value)
+          }}>
+            <option value="all">All</option>
+            {categories.map( (category,i )=> (
+              <option value={Object.values(category)} key={i}>{Object.keys(category)}</option>
+            ))}
           </select>
         </div>  
         <ul className="places-list">
