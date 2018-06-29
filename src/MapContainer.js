@@ -12,20 +12,30 @@ class MapContainer extends Component {
     markersAnimation: this.props.google.maps.Animation.DROP
   }
 
-  // If marker is clicked, activate marker and display infoWindow
+  markerIcon = {
+    default: 
+      {
+        url: `${require("./icons/default_marker.png")}`,
+        scaledSize: new window.google.maps.Size(45,45)
+      }, 
+    active: {
+        url: `${require("./icons/active_marker.png")}`,
+        scaledSize: new window.google.maps.Size(45,45)
+      }
+    }
+
+  // If marker is clicked, activate marker and display infoWindow with photo
   onMarkerClick = (place, marker, e) => {
     let venue = place.venueId
     VenuesAPI.getPhoto(venue).then( response => {
       photo = `${response.prefix}100x100${response.suffix}`
+      this.setState({
+        selectedPlace: place,
+        activeMarker: marker,
+        showingInfoWindow: true,
+        markersAnimation: null
+      })
     })
-
-    this.setState({
-      selectedPlace: place,
-      activeMarker: marker,
-      showingInfoWindow: true,
-      markersAnimation: null
-    })
-    console.log(this.state.selectedPlace.position)
   }
 
   // Close the infoWindow and deactivate the activeMarker if clicked anywhere on the map
@@ -33,7 +43,8 @@ class MapContainer extends Component {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null
+        activeMarker: null,
+        defaultIcon: true
       })
     }
   }
@@ -41,7 +52,7 @@ class MapContainer extends Component {
   render() {
 
     const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
-    
+
     return (
       <Map 
         className="map"
@@ -65,6 +76,7 @@ class MapContainer extends Component {
           animation={markersAnimation}
           categories={(typeof(place.categories) !== 'undefined') ? place.categories[0] : null}
           address={(typeof(place.location.address) !== 'undefined') ? place.location.address : null}
+          icon= {(place.id === activeMarker.venueId) ? this.markerIcon.active : this.markerIcon.default}
         />
       )}
       
