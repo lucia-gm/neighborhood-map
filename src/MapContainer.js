@@ -43,18 +43,18 @@ class MapContainer extends Component {
     })
   }
 
-  // Close the infoWindow and deactivate the activeMarker if clicked anywhere on the map
-  onMapClicked = (props) => {
+  // Close the infoWindow and deactivate the activeMarker if clicked anywhere on the map or the close icon
+  onCloseInfoWindow = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null,
+        activeMarker: {},
         defaultIcon: true
       })
     }
   }
 
-  
+
   render() {
 
     const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
@@ -63,7 +63,7 @@ class MapContainer extends Component {
       <Map 
         className="map"
         google={this.props.google} 
-        onClick={this.onMapClicked}
+        onClick={this.onCloseInfoWindow}
         zoom={15}
         style={{width: '100%', height: '100%', position: 'relative' }}
         containerStyle={{ height: 'auto', position: 'relative'}}
@@ -88,7 +88,8 @@ class MapContainer extends Component {
       
       <InfoWindow 
         marker={activeMarker}
-        visible={showingInfoWindow}>
+        visible={showingInfoWindow}
+        onClose={this.onCloseInfoWindow}>
           <div className="info-window">
             <img style={{ width: 80, height: 80, backgroundColor: '#f9f9f9'}} src={photo} alt={selectedPlace.name}/>
             <div className="info-window-details">  
