@@ -28,4 +28,5 @@ export const getAll = () =>
 export const getPhoto = (venue) =>
   fetch(`${api}/${venue}/photos?client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&limit=1`)
     .then(response => response.json())
-    .then(data => data.response.photos.items[0]) //To get photo details
+    .then(data => data.response.photos) //To get photo details
+

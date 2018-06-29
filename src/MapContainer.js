@@ -27,14 +27,19 @@ class MapContainer extends Component {
   // If marker is clicked, activate marker and display infoWindow with photo
   onMarkerClick = (place, marker, e) => {
     let venue = place.venueId
-    VenuesAPI.getPhoto(venue).then( response => {
-      photo = `${response.prefix}100x100${response.suffix}`
-      this.setState({
-        selectedPlace: place,
-        activeMarker: marker,
-        showingInfoWindow: true,
-        markersAnimation: null
-      })
+
+    VenuesAPI.getPhoto(venue)
+      .then(response => {
+        let photoLink = response.items[0]
+        photo = `${photoLink.prefix}100x100${photoLink.suffix}`} )
+      .catch(error => console.log("Sorry! We can't get the foto details"))
+      .then( response => {
+        this.setState({
+          selectedPlace: place,
+          activeMarker: marker,
+          showingInfoWindow: true,
+          markersAnimation: null
+        })
     })
   }
 
@@ -49,6 +54,7 @@ class MapContainer extends Component {
     }
   }
 
+  
   render() {
 
     const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
