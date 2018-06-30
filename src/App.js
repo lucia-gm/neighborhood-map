@@ -9,7 +9,8 @@ class App extends Component {
     super()
     this.state = {
       locations: [],
-      filteredLocations: []
+      filteredLocations: [],
+      selectedPlace: null
     }
   }
 
@@ -33,8 +34,8 @@ class App extends Component {
 
   // If clicked on a place of the sidebar list, find the correspondent marker on the mapContainer
   handleSidebarPlaceClick = (place) => {
-    this.mapContainer.markerFinder(place)
-    console.log(this.mapContainer)
+    // this.mapContainer.markerFinder(place)
+    this.setState({ selectedPlace: place })
   }
 
   // handleSidebarFilterChange
@@ -48,11 +49,11 @@ class App extends Component {
     }
     this.setState({filteredLocations : filteredVenues})
     // Close any infoWindow open
-    this.mapContainer.setState({showingInfoWindow: false})
+    // this.setState({ selectedPlace: null })
    }
  
   render() {
-    const {filteredLocations, locations} = this.state
+    const {selectedPlace, filteredLocations, locations} = this.state
     let places = (filteredLocations.length >= 1) ? filteredLocations : locations
 
     return (
@@ -68,7 +69,7 @@ class App extends Component {
         <main>
           <Sidebar places={places} onUpdateCategory={this.sidebarFilter} handleSidebarPlaceClick={this.handleSidebarPlaceClick}/>
           <div className="map-container">
-            <MapContainer places={places} onRef={instance => this.mapContainer = instance} /> 
+            <MapContainer places={places} selectedPlaceId={selectedPlace && selectedPlace.id} /> 
           </div>
         </main>
       </div>

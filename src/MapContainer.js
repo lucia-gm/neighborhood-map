@@ -10,22 +10,19 @@ class MapContainer extends Component {
 
     this.state = {
       showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {},
-      markersAnimation: this.props.google.maps.Animation.DROP
-    }
-
-    this.props.onRef(this)
-    
-    this.markerRef = []
-    this.setMarkerRef = element => {
-      this.markerRef.push(element)
+      selectedPlaceId: this.props.selectedPlaceId,
+      markersAnimation: this.props.google.maps.Animation.DROP,
+      updatedProp: false
     }
   }
 
-  componentDidMount() {
-    console.log('markers ref', this.markerRef)
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.selectedPlaceId && !state.updatedProp) {
+  //     const s = { ...state, selectedPlaceId: props.selectedPlaceId }
+  //     return s
+  //   }
+  //   return state;
+  // }
 
   markerIcon = {
     default: {
@@ -41,7 +38,7 @@ class MapContainer extends Component {
   // Activate marker and display infoWindow with photo
   showActivePlace = (place, marker) => {
     let venue = place.venueId
-
+    
     VenuesAPI.getPhoto(venue)
       .then(response => {
         let photoLink = response.items[0]
@@ -49,22 +46,12 @@ class MapContainer extends Component {
       .catch(error => console.log("Sorry! We can't get the foto details"))
       .then( response => {
         this.setState({
-          selectedPlace: place,
-          activeMarker: marker,
           showingInfoWindow: true,
-          markersAnimation: null
+          markersAnimation: null,
+          selectedPlaceId: place.id
         })
     })
   }
-
-  // Find the marker for the sidebar place clicked
-  markerFinder = (place) => {
-    console.log('place.id' , place.id)
-    console.log('markers from father', this.markerRef)
-    // const markerFound = this.markerRef.filter( marker => { place.id = marker.props.venueId})
-    // console.log('markerFound', markerFound)
-    // this.showActivePlace(place, markerFound)
-  } 
 
   // If marker is clicked, show active place
   onMarkerClick = (place, marker, e) => {
@@ -75,16 +62,37 @@ class MapContainer extends Component {
   onCloseInfoWindow = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
-        showingInfoWindow: false,
-        activeMarker: {}
+        showingInfoWindow: false
       })
     }
   }
 
   render() {
+    const {markersAnimation, showingInfoWindow, selectedPlaceId } = this.state
 
-    const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
-    console.log('markers ref render', this.markerRef)
+    let markers = []
+    let activeMarker = null;
+    
+    this.props.places.forEach(place => {
+      const marker = <Marker
+        id={place.id}
+        key={place.id}
+        name={place.name}
+        venueId={place.id}
+        position={place.location}
+        onClick={this.onMarkerClick}
+        animation={markersAnimation}
+        categories={(typeof (place.categories) !== 'undefined') ? place.categories[0] : null}
+        address={(typeof (place.location.address) !== 'undefined') ? place.location.address : null}
+        icon={(selectedPlaceId && selectedPlaceId === place.id) ? this.markerIcon.active : this.markerIcon.default}
+      />
+
+      markers.push(marker)  
+
+      if (selectedPlaceId && place.id === selectedPlaceId) {
+        activeMarker = marker
+      }
+    })
 
     return (
       <Map 
@@ -99,42 +107,7 @@ class MapContainer extends Component {
           lng: -8.545693
         }}>
       
-      {this.props.places.map( place =>
-        <Marker 
-          key={place.id}
-          name={place.name}
-          venueId={place.id}
-          position={place.location}
-          onClick={this.onMarkerClick}
-          animation={markersAnimation}
-          categories={(typeof(place.categories) !== 'undefined') ? place.categories[0] : null}
-          address={(typeof(place.location.address) !== 'undefined') ? place.location.address : null}
-          icon= {(place.id === activeMarker.venueId) ? this.markerIcon.active : this.markerIcon.default}
-          ref={this.setMarkerRef}
-        />
-      )}
-      
-      <InfoWindow 
-        marker={activeMarker}
-        visible={showingInfoWindow}
-        onClose={this.onCloseInfoWindow}>
-          <div className="info-window">
-            <img style={{ width: 80, height: 80, backgroundColor: '#f9f9f9'}} src={photo} alt={selectedPlace.name}/>
-            <div className="info-window-details">  
-              <h4 className="info-window-title">{selectedPlace.name}</h4>
-              <ul>
-                {(selectedPlace.address) ? 
-                  <li>{selectedPlace.address}</li>
-                  : 
-                  <li>There is no address available</li>
-                }
-                {selectedPlace.categories && (
-                  <li>Category: {selectedPlace.categories.name}</li>
-                )}
-              </ul>
-            </div>  
-          </div>
-      </InfoWindow>
+      { markers }
       
       </Map>
     );
