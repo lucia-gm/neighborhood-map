@@ -16,13 +16,13 @@ class MapContainer extends Component {
     }
   }
 
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.selectedPlaceId && !state.updatedProp) {
-  //     const s = { ...state, selectedPlaceId: props.selectedPlaceId }
-  //     return s
-  //   }
-  //   return state;
-  // }
+  static getDerivedStateFromProps(props, state) {
+    if (props.selectedPlaceId && !state.updatedProp) {
+      const s = { ...state, selectedPlaceId: props.selectedPlaceId }
+      return s
+    }
+    return state;
+  }
 
   markerIcon = {
     default: {
