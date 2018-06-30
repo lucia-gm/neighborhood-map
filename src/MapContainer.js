@@ -5,27 +5,41 @@ import * as VenuesAPI from './VenuesAPI';
 let photo;
 
 class MapContainer extends Component {
-  state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
-    markersAnimation: this.props.google.maps.Animation.DROP
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
+      markersAnimation: this.props.google.maps.Animation.DROP
+    }
+
+    this.props.onRef(this)
+    
+    this.markerRef = []
+    this.setMarkerRef = element => {
+      this.markerRef.push(element)
+    }
+  }
+
+  componentDidMount() {
+    console.log('markers ref', this.markerRef)
   }
 
   markerIcon = {
-    default: 
-      {
-        url: `${require("./icons/default_marker.png")}`,
-        scaledSize: new window.google.maps.Size(45,45)
-      }, 
+    default: {
+      url: `${require("./icons/default_marker.png")}`,
+      scaledSize: new window.google.maps.Size(45,45)
+    },
     active: {
-        url: `${require("./icons/active_marker.png")}`,
-        scaledSize: new window.google.maps.Size(45,45)
-      }
+      url: `${require("./icons/active_marker.png")}`,
+      scaledSize: new window.google.maps.Size(45,45)
     }
+  }
 
-  // If marker is clicked, activate marker and display infoWindow with photo
-  onMarkerClick = (place, marker, e) => {
+  // Activate marker and display infoWindow with photo
+  showActivePlace = (place, marker) => {
     let venue = place.venueId
 
     VenuesAPI.getPhoto(venue)
@@ -43,21 +57,34 @@ class MapContainer extends Component {
     })
   }
 
+  // Find the marker for the sidebar place clicked
+  markerFinder = (place) => {
+    console.log('place.id' , place.id)
+    console.log('markers from father', this.markerRef)
+    // const markerFound = this.markerRef.filter( marker => { place.id = marker.props.venueId})
+    // console.log('markerFound', markerFound)
+    // this.showActivePlace(place, markerFound)
+  } 
+
+  // If marker is clicked, show active place
+  onMarkerClick = (place, marker, e) => {
+    this.showActivePlace(place, marker)
+  }
+
   // Close the infoWindow and deactivate the activeMarker if clicked anywhere on the map or the close icon
   onCloseInfoWindow = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: {},
-        defaultIcon: true
+        activeMarker: {}
       })
     }
   }
 
-
   render() {
 
     const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
+    console.log('markers ref render', this.markerRef)
 
     return (
       <Map 
@@ -83,6 +110,7 @@ class MapContainer extends Component {
           categories={(typeof(place.categories) !== 'undefined') ? place.categories[0] : null}
           address={(typeof(place.location.address) !== 'undefined') ? place.location.address : null}
           icon= {(place.id === activeMarker.venueId) ? this.markerIcon.active : this.markerIcon.default}
+          ref={this.setMarkerRef}
         />
       )}
       

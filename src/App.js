@@ -5,6 +5,14 @@ import MapContainer from './MapContainer';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super()
+    this.state = {
+      locations: this.pointsOfInterest,
+      filteredLocations: []
+    }
+  }
+
   pointsOfInterest = [
     {id: 0, name:'Praza do Obradoiro', location: {lat: 42.880593, lng: -8.545628}},
     {id: 1, name: 'Mercado de Abastos', location: {lat: 42.879840, lng: -8.541342}},
@@ -18,11 +26,6 @@ class App extends Component {
     {id: 9, name: 'Hostal dos reis Católicos', location: {lat: 42.881449, lng: -8.545879}}
   ]
 
-  state = {
-    locations: this.pointsOfInterest,
-    filteredLocations: []
-  }
-
   componentDidMount() {
     VenuesAPI.getAll()
       .then(response => {
@@ -30,8 +33,8 @@ class App extends Component {
         console.log(this.state.locations)
       })
       .catch((error) => {
-        console.error(error);
-      });
+        console.error(error)
+      })    
   }
 
   onMenuClick = () => {
@@ -41,7 +44,14 @@ class App extends Component {
     sidebar.classList.toggle("open")
   }
 
-  filterCategory = (event) => {
+  // If clicked on a place of the sidebar list, find the correspondent marker on the mapContainer
+  handleSidebarPlaceClick = (place) => {
+    this.mapContainer.markerFinder(place)
+    console.log(this.mapContainer)
+  }
+
+  // handleSidebarFilterChange
+  sidebarFilter = (event) => {
     let filteredVenues
     if (event === "all") {
       filteredVenues = this.state.locations
@@ -50,6 +60,8 @@ class App extends Component {
       console.log(filteredVenues)
     }
     this.setState({filteredLocations : filteredVenues})
+    // Close any infoWindow open
+    this.mapContainer.setState({showingInfoWindow: false})
    }
  
   render() {
@@ -67,9 +79,9 @@ class App extends Component {
           <h1 className="app-title">Explore Santiago</h1>
         </header>
         <main>
-          <Sidebar places={places} onUpdateCategory={this.filterCategory}/>
+          <Sidebar places={places} onUpdateCategory={this.sidebarFilter} handleSidebarPlaceClick={this.handleSidebarPlaceClick}/>
           <div className="map-container">
-            <MapContainer places={places}/> 
+            <MapContainer places={places} onRef={instance => this.mapContainer = instance} /> 
           </div>
         </main>
       </div>
