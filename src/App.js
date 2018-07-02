@@ -31,12 +31,6 @@ class App extends Component {
     sidebar.classList.toggle("open")
   }
 
-  // If clicked on a place of the sidebar list, find the correspondent marker on the mapContainer
-  handleSidebarPlaceClick = (place) => {
-    this.mapContainer.markerFinder(place)
-    console.log(this.mapContainer)
-  }
-
   // handleSidebarFilterChange
   sidebarFilter = (event) => {
     let filteredVenues
@@ -66,7 +60,7 @@ class App extends Component {
           <h1 className="app-title">Explore Santiago</h1>
         </header>
         <main>
-          <Sidebar places={places} onUpdateCategory={this.sidebarFilter} handleSidebarPlaceClick={this.handleSidebarPlaceClick}/>
+          <Sidebar places={places} onUpdateCategory={this.sidebarFilter}/>
           <div className="map-container">
             <MapContainer places={places} onRef={instance => this.mapContainer = instance} /> 
           </div>

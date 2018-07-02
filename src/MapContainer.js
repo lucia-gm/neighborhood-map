@@ -16,15 +16,6 @@ class MapContainer extends Component {
     }
 
     this.props.onRef(this)
-    
-    this.markerRef = []
-    this.setMarkerRef = element => {
-      this.markerRef.push(element)
-    }
-  }
-
-  componentDidMount() {
-    console.log('markers ref', this.markerRef)
   }
 
   markerIcon = {
@@ -40,7 +31,7 @@ class MapContainer extends Component {
 
   // Activate marker and display infoWindow with photo
   showActivePlace = (place, marker) => {
-    let venue = place.venueId
+    let venue = place.id
 
     VenuesAPI.getPhoto(venue)
       .then(response => {
@@ -56,15 +47,6 @@ class MapContainer extends Component {
         })
     })
   }
-
-  // Find the marker for the sidebar place clicked
-  markerFinder = (place) => {
-    console.log('place.id' , place.id)
-    console.log('markers from father', this.markerRef)
-    // const markerFound = this.markerRef.filter( marker => { place.id = marker.props.venueId})
-    // console.log('markerFound', markerFound)
-    // this.showActivePlace(place, markerFound)
-  } 
 
   // If marker is clicked, show active place
   onMarkerClick = (place, marker, e) => {
@@ -82,9 +64,8 @@ class MapContainer extends Component {
   }
 
   render() {
-
+    
     const {markersAnimation, activeMarker, showingInfoWindow, selectedPlace} = this.state
-    console.log('markers ref render', this.markerRef)
 
     return (
       <Map 
@@ -103,14 +84,13 @@ class MapContainer extends Component {
         <Marker 
           key={place.id}
           name={place.name}
-          venueId={place.id}
+          id={place.id}
           position={place.location}
           onClick={this.onMarkerClick}
           animation={markersAnimation}
           categories={(typeof(place.categories) !== 'undefined') ? place.categories[0] : null}
           address={(typeof(place.location.address) !== 'undefined') ? place.location.address : null}
-          icon= {(place.id === activeMarker.venueId) ? this.markerIcon.active : this.markerIcon.default}
-          ref={this.setMarkerRef}
+          icon= {(place.id === activeMarker.id) ? this.markerIcon.active : this.markerIcon.default}
         />
       )}
       

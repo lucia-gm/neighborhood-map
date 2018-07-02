@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import {categories} from './VenuesAPI';
 
 class Sidebar extends Component {
-  state = {
-    selectedPlace: {}
-  }
-  
   render() {
     return (
       <div id="sidebar">
@@ -21,7 +17,7 @@ class Sidebar extends Component {
         </div>  
         <ul className="places-list">
           {this.props.places.map( place => 
-            <li key={place.id} onClick={this.props.handleSidebarPlaceClick.bind(this, place)}>{place.name}</li>
+            <li key={place.id}>{place.name}</li>
           )}
         </ul>
       </div>
