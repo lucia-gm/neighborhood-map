@@ -14,6 +14,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.menu = document.getElementById('burger-icon')
+    this.sidebar = document.getElementById('sidebar')
     VenuesAPI.getAll()
       .then(response => {
         this.setState({locations: response.venues})
@@ -25,10 +27,8 @@ class App extends Component {
   }
 
   onMenuClick = () => {
-    const menu = document.getElementById('burger-icon')
-    const sidebar = document.getElementById('sidebar')
-    menu.classList.toggle("change")
-    sidebar.classList.toggle("open")
+    this.menu.classList.toggle("change")
+    this.sidebar.classList.toggle("open")
   }
 
   // handleSidebarFilterChange
