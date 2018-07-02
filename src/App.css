@@ -68,11 +68,11 @@ main {
   width: 280px;
   background-color: #13293d;
   display: none;
-  overflow-y: scroll;
 }  
 
 #sidebar.open {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter {
@@ -87,6 +87,7 @@ main {
 
 .places-list {
   padding: 0;
+  overflow-y: scroll;
 }
 
 .places-list li {
