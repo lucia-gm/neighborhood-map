@@ -1,6 +1,6 @@
 const api = "https://api.foursquare.com/v2/venues"
 
-export const defaultPlaces = [
+export const defaultList = [
   {id: 0, name:'Praza do Obradoiro', location: {lat: 42.880593, lng: -8.545628}},
   {id: 1, name: 'Mercado de Abastos', location: {lat: 42.879840, lng: -8.541342}},
   {id: 2, name: 'Parque da Alameda', location: {lat: 42.876943, lng: -8.547609}},
@@ -14,24 +14,23 @@ export const defaultPlaces = [
 ]
 
 export const categories = [
-  {"Restaurant": "4bf58dd8d48988d1c4941735"},
-  {"Church": "4bf58dd8d48988d132941735"},
-  {"Clothing Store": "4bf58dd8d48988d108951735"},
-  {"Hotel": "4bf58dd8d48988d1fa931735"},
-  {"Nightlife": "4bf58dd8d48988d116941735"},
-  {"Park": "4bf58dd8d48988d163941735"}
+  { name: "Restaurant", id: "4bf58dd8d48988d1c4941735"},
+  { name: "Church", id: "4bf58dd8d48988d132941735"},
+  { name: "Clothing Store", id: "4bf58dd8d48988d108951735"},
+  { name: "Hotel", id: "4bf58dd8d48988d1fa931735"},
+  { name: "Nightlife", id: "4bf58dd8d48988d116941735"},
+  { name: "Park", id: "4bf58dd8d48988d163941735"}
 ]
 
-const categoriesId = categories.map(category => Object.values(category))
-
+const apiCategoriesId = categories.map(category => category.id)
 const apiParams = {
- areaLatLng: "42.880419,-8.545693",
- radius: "500",     //Meters
- intent: "browse",  //To find venues in a given area
- clientId: "3P4X2ESFH3NOOSCM1NAMXLBURGCKHLSWD3H3YHDDMEK4T4JC",
- clientSecret: "BQLAUTTC4OENGUL3WKB3MB3PPCDV0LXTXT20DVO53355KF5F",
- version: "20180626",
- categoryId: categoriesId
+  categoryId: apiCategoriesId,  
+  areaLatLng: "42.880419,-8.545693",
+  radius: "500",     // Meters
+  intent: "browse",  // To find venues in a given area
+  clientId: "3P4X2ESFH3NOOSCM1NAMXLBURGCKHLSWD3H3YHDDMEK4T4JC",
+  clientSecret: "BQLAUTTC4OENGUL3WKB3MB3PPCDV0LXTXT20DVO53355KF5F",
+  version: "20180626"
 }
 
 export const getAll = () =>
@@ -42,5 +41,5 @@ export const getAll = () =>
 export const getPhoto = (venue) =>
   fetch(`${api}/${venue}/photos?client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&limit=1`)
     .then(response => response.json())
-    .then(data => data.response.photos) //To get photo details
+    .then(data => data.response.photos) // To get photo details
 
