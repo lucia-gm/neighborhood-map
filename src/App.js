@@ -11,7 +11,7 @@ class App extends Component {
     placeSelected: null
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.menu = document.getElementById('burger-icon')
     this.sidebar = document.getElementById('sidebar')
 
@@ -28,15 +28,14 @@ class App extends Component {
     this.sidebar.classList.toggle("open")
   }
 
-  handleSidebarFilter = (event) => {
+  handleSidebarFilter = (value) => {
     let placesFiltered
-    if (event === "all") {
+    if (value === "all") {
       placesFiltered = this.state.placeList
     } else {
-      placesFiltered = this.state.placeList.filter( place => place.categories[0].id === event)
-      console.log(placesFiltered)
+      placesFiltered = this.state.placeList.filter( place => place.categories[0].id === value)
     }
-    this.setState({placeListFiltered : placesFiltered})
+    this.setState({placeListFiltered: placesFiltered})
   }
  
   render() {
