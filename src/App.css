@@ -72,6 +72,8 @@ ul {
 #sidebar.open {
   display: flex;
   flex-direction: column;
+  animation: showNav 300ms ease-out both;
+
 }
 
 .filter {
@@ -104,5 +106,10 @@ main {
 
 #map {
   height: 100%;
-  width: 100%;
+  flex-grow: 1;
+}
+
+@keyframes showNav {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
