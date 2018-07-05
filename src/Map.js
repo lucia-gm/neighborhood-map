@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import Marker from './Marker.js'
 
 
 class Map extends Component {
-  state = {
-    markers: [],
-  }
+  constructor(props) {
+    super(props)
+    this.state = {
+      markers: [],
+    }
 
-  mapIdDOM = 'map'
+    this.mapIdDOM = 'map'
+  }
 
   componentDidMount() {
     try {
@@ -19,25 +23,14 @@ class Map extends Component {
     }
   }
 
-  createMarker = () => {
-    this.props.placeList.forEach(place => {
-      let marker = new window.google.maps.Marker({
-        map: this.map,
-        position: place.location,
-        name: place.name,
-        animation: window.google.maps.Animation.DROP,
-        id: place.id
-      });
-
-    this.state.markers.push(marker);
-    });
-  }
-
   render() {
-    
+    this.setState.markers = []
+
     return(
       <div id={this.mapIdDOM}>
-        {this.createMarker()}
+        {this.props.placeList.map(place => (
+          <Marker place={place} markers={this.state.markers} map={this.map} key={place.id}/>
+        ))}
       </div>
     )
   }
