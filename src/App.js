@@ -5,10 +5,13 @@ import * as PlacesAPI from './PlacesAPI';
 import './App.css';
 
 class App extends Component {
-  state = {
-    placeList: [], 
-    placeListFiltered: [],
-    placeSelected: null
+  constructor(props) {
+    super()
+    this.state = {
+      placeList: [], 
+      placeListFiltered: [],
+      markerInMapList: []
+    }
   }
 
   componentDidMount = () => {
@@ -35,11 +38,29 @@ class App extends Component {
     } else {
       placesFiltered = this.state.placeList.filter( place => place.categories[0].id === value)
     }
-    this.setState({placeListFiltered: placesFiltered})
+    this.setState({ 
+      // markerInMapList: [],
+      placeListFiltered: placesFiltered,
+    })
   }
+
+  handleSidebarPlaceClick = (place) => {
+    const marker = this.state.markerInMapList.filter(marker => marker.id === place.id)
+    this.handleMarkerSelected(marker[0])
+  }
+
+  handleMarkerSelected = (marker) => {
+    marker.setAnimation(window.google.maps.Animation.BOUNCE)
+    marker.setIcon({
+      url: `${require("./icons/active_marker.png")}`,
+      scaledSize: new window.google.maps.Size(45,45)
+    })
+  }
+
+
  
   render() {
-    const {placeList, placeListFiltered, placeSelected} = this.state
+    const {placeList, placeListFiltered, markerInMapList} = this.state
     let places = (placeListFiltered.length >= 1) ? placeListFiltered : placeList
 
     return (
@@ -53,8 +74,8 @@ class App extends Component {
           <h1 className="app-title">Explore Santiago</h1>
         </header>
         <main>
-          <Sidebar placeList={places} onSidebarFilter={this.handleSidebarFilter}/> 
-          <Map placeList={places}/> 
+          <Sidebar placeList={places} onSidebarFilter={this.handleSidebarFilter} sidebarPlaceClick={this.handleSidebarPlaceClick}/> 
+          <Map placeList={places} markerInMapList={markerInMapList} markerSelected={this.handleMarkerSelected}/> 
         </main>
       </div>
     );

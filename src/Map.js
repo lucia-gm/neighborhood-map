@@ -5,10 +5,7 @@ import Marker from './Marker.js'
 class Map extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      markers: [],
-    }
-
+    
     this.mapIdDOM = 'map'
   }
 
@@ -24,12 +21,17 @@ class Map extends Component {
   }
 
   render() {
-    this.setState.markers = []
 
     return(
       <div id={this.mapIdDOM}>
         {this.props.placeList.map(place => (
-          <Marker place={place} markers={this.state.markers} map={this.map} key={place.id}/>
+          <Marker 
+          place={place} 
+          markers={this.markers} 
+          map={this.map} 
+          key={place.id} 
+          markerInMapList={this.props.markerInMapList} 
+          markerSelected={this.props.markerSelected}/>
         ))}
       </div>
     )

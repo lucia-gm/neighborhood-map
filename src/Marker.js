@@ -6,21 +6,24 @@ class Marker extends Component {
       map: this.props.map,
       position: place.location,
       name: place.name,
+      icon: {
+        url: `${require("./icons/default_marker.png")}`,
+        scaledSize: new window.google.maps.Size(45,45)
+      },
+      id: place.id
       // animation: window.google.maps.Animation.DROP
-    }
-  );
+    })
 
-    this.props.markers.push(this.markerInMap)
+    this.props.markerInMapList.push(this.markerInMap)
+    this.markerInMap.addListener('click',this.props.markerSelected.bind(this, this.markerInMap))
   }
 
   componentWillMount = () => {
       this.createMarkerInMap(this.props.place)
-      console.log('created', this.markerInMap)
   }
 
   componentWillUnmount = () => {
     this.markerInMap.setMap(null)
-    console.log('removed', this.markerInMap)
   }
 
   render() {

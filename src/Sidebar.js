@@ -17,7 +17,7 @@ class Sidebar extends Component {
         </div>  
         <ul className="places-list">
           {this.props.placeList.map( place => 
-            <li key={place.id}>{place.name}</li>
+            <li key={place.id} onClick={this.props.sidebarPlaceClick.bind(this, place)}>{place.name}</li>
           )}
         </ul>
       </div>
