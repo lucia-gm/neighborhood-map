@@ -39,7 +39,6 @@ class App extends Component {
       placesFiltered = this.state.placeList.filter( place => place.categories[0].id === value)
     }
     this.setState({ 
-      // markerInMapList: [],
       placeListFiltered: placesFiltered,
     })
   }

@@ -21,7 +21,6 @@ class Map extends Component {
   }
 
   render() {
-
     return(
       <div id={this.mapIdDOM}>
         {this.props.placeList.map(place => (

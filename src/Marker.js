@@ -24,9 +24,19 @@ class Marker extends Component {
 
   componentWillUnmount = () => {
     this.markerInMap.setMap(null)
+
+    let markerInMapList = this.props.markerInMapList
+    let index = markerInMapList.indexOf(this.markerInMap)
+
+    //if this marker is on the list of markers, remove it
+    if (index > -1) {
+      markerInMapList.splice(index, 1);
+    }
+    console.log('index', index)
   }
 
   render() {
+    console.log('markers',this.props.markerInMapList)
     return null 
   }
 }
