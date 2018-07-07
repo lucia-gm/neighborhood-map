@@ -14,7 +14,26 @@ class Map extends Component {
     try {
       this.map = new window.google.maps.Map(document.getElementById(this.mapIdDOM), {
         center: {lat: 42.880419, lng: -8.545693},
-        zoom: 16
+        zoom: 16,
+        styles: [
+          {
+            featureType: 'poi.business',
+            elementType: 'labels',
+            stylers: [{visibility: 'off'}]
+          },{
+            featureType: 'poi.attraction',
+            elementType: 'labels',
+            stylers: [{visibility: 'off'}]
+          },{
+            featureType: 'poi.place_of_worship',
+            elementType: 'labels',
+            stylers: [{visibility: 'off'}]
+          },{
+            featureType: 'poi.park',
+            elementType: 'labels',
+            stylers: [{visibility: 'off'}]
+          }
+        ]
       });
     } catch (error) {
       console.error(error)
