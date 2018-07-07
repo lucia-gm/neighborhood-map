@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       placeList: [], 
       placeListFiltered: [],
-      markerInMapList: []
+      markerInMapList: [],
+      markerInMapActive: {},
     }
   }
 
@@ -49,17 +50,31 @@ class App extends Component {
   }
 
   handleMarkerSelected = (marker) => {
-    marker.setAnimation(window.google.maps.Animation.BOUNCE)
-    marker.setIcon({
-      url: `${require("./icons/active_marker.png")}`,
-      scaledSize: new window.google.maps.Size(45,45)
-    })
+    let previousMarker = this.state.markerInMapActive
+    if (marker !== previousMarker) {
+      if (Object.keys(previousMarker).length > 0) {
+        previousMarker.setAnimation(window.google.maps.Animation.null)
+        previousMarker.setIcon({
+          url: `${require("./icons/default_marker.png")}`,
+          scaledSize: new window.google.maps.Size(45,45)
+        })
+      }
+      marker.setAnimation(window.google.maps.Animation.BOUNCE)
+      marker.setIcon({
+        url: `${require("./icons/active_marker.png")}`,
+        scaledSize: new window.google.maps.Size(45,45)
+      })
+      
+      this.setState({markerInMapActive: marker})
+    } 
   }
 
-
+  closeInfoWindow = (infoWindow) => {
+    infoWindow.close()
+  }
  
   render() {
-    const {placeList, placeListFiltered, markerInMapList} = this.state
+    const {placeList, placeListFiltered, markerInMapList, markerInMapActive} = this.state
     let places = (placeListFiltered.length >= 1) ? placeListFiltered : placeList
 
     return (
@@ -73,8 +88,17 @@ class App extends Component {
           <h1 className="app-title">Explore Santiago</h1>
         </header>
         <main>
-          <Sidebar placeList={places} onSidebarFilter={this.handleSidebarFilter} sidebarPlaceClick={this.handleSidebarPlaceClick}/> 
-          <Map placeList={places} markerInMapList={markerInMapList} markerSelected={this.handleMarkerSelected}/> 
+          <Sidebar 
+            placeList={places} 
+            onSidebarFilter={this.handleSidebarFilter} 
+            sidebarPlaceClick={this.handleSidebarPlaceClick}/> 
+          <Map 
+            placeList={places} 
+            markerInMapList={markerInMapList} 
+            handleMarkerSelected={this.handleMarkerSelected} 
+            markerInMapActive={markerInMapActive}
+            closeInfoWindow={this.closeInfoWindow}
+            /> 
         </main>
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Marker from './Marker.js'
+import Marker from './Marker.js';
+import InfoWindow from './InfoWindow';
 
 
 class Map extends Component {
@@ -30,8 +31,13 @@ class Map extends Component {
           map={this.map} 
           key={place.id} 
           markerInMapList={this.props.markerInMapList} 
-          markerSelected={this.props.markerSelected}/>
+          handleMarkerSelected={this.props.handleMarkerSelected}/>
         ))}
+
+        <InfoWindow 
+          map={this.map} 
+          markerInMapActive={this.props.markerInMapActive}
+          closeInfoWindow={this.props.closeInfoWindow}/>
       </div>
     )
   }

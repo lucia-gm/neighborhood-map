@@ -1,25 +1,43 @@
 import { Component } from 'react';
+import * as PlacesAPI from './PlacesAPI';
 
 class Marker extends Component {
+  
   createMarkerInMap = (place) => {
     this.markerInMap = new window.google.maps.Marker({
       map: this.props.map,
       position: place.location,
       name: place.name,
+      id: place.id,
       icon: {
         url: `${require("./icons/default_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       },
-      id: place.id
-      // animation: window.google.maps.Animation.DROP
+      // info: this.placeInfo,
+      address: (typeof(place.location.address) !== 'undefined') ? place.location.address : 'There is no address available',
+      category: (typeof(place.categories) !== 'undefined') ? place.categories[0].name : null,
+      photo: ''
     })
 
     this.props.markerInMapList.push(this.markerInMap)
-    this.markerInMap.addListener('click',this.props.markerSelected.bind(this, this.markerInMap))
+    this.markerInMap.addListener('click',this.props.handleMarkerSelected.bind(this, this.markerInMap))
   }
 
   componentWillMount = () => {
-      this.createMarkerInMap(this.props.place)
+    this.createMarkerInMap(this.props.place)
+  }
+
+  componentDidMount = () => {
+    let photo
+    PlacesAPI.getPhoto(this.props.place.id)
+    .then(response => {
+      let photoLink = response.items[0]
+      photo = `${photoLink.prefix}100x100${photoLink.suffix}`} )
+    .catch(error => console.log("Sorry! We can't get the foto details"))
+    .then(response => {
+      console.log('photo', photo)
+      this.markerInMap.photo = photo
+    })
   }
 
   componentWillUnmount = () => {
@@ -32,7 +50,6 @@ class Marker extends Component {
     if (index > -1) {
       markerInMapList.splice(index, 1);
     }
-    console.log('index', index)
   }
 
   render() {

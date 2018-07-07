@@ -120,3 +120,25 @@ main {
   flex-grow: 1;
 }
 
+.info-window {
+  width: 250px;
+  height: 80px;
+  display: flex;
+  margin-top: 4px;
+}
+
+.info-window img {
+  flex-shrink: 0;
+}
+
+.info-window-details {
+  padding-left: 10px;
+}
+
+.info-window-title {
+  margin: 2px 0;
+}
+
+.info-window-details li {
+  padding: 5px 0;
+}
