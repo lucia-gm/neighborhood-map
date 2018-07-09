@@ -7,12 +7,14 @@ class InfoWindow extends Component {
       position: {lat: 42.880593, lng: -8.545628},
       map: this.props.map
     })
+
+    this.infoWindow.addListener('closeclick', this.props.closeInfoWindow.bind(this, this.infoWindow))
   }
 
   componentWillReceiveProps = (nextProps) => {
     let content =  
     `<div class="info-window">
-      <img style="width: 80px; height: 80px; background-color: #f9f9f9" src="${nextProps.markerInMapActive.photo}" alt="${nextProps.markerInMapActive.name}"/>
+      <img src="${nextProps.markerInMapActive.photo}" alt="${nextProps.markerInMapActive.name}"/>
           <div class="info-window-details">  
             <h4 class="info-window-title">${nextProps.markerInMapActive.name}</h4>
             <ul>
@@ -22,7 +24,7 @@ class InfoWindow extends Component {
           </div>  
     </div>`
 
-    if (nextProps.markerInMapActive !== this.props.markerInMapActive) {
+    if (nextProps.markerInMapActive !== this.props.markerInMapActive & Object.keys(nextProps.markerInMapActive).length > 0) {
       this.infoWindow.marker = nextProps.markerInMapActive
       this.infoWindow.setContent(content)
       this.infoWindow.open(nextProps.map, nextProps.markerInMapActive)
@@ -32,7 +34,6 @@ class InfoWindow extends Component {
   
 
   render() {
-    console.log('infoWindow', this.infoWindow)
     return null
   }
 

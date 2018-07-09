@@ -32,6 +32,7 @@ class App extends Component {
     this.sidebar.classList.toggle("open")
   }
 
+  // Show the list of places corresponding to the filtered category
   handleSidebarFilter = (value) => {
     let placesFiltered
     if (value === "all") {
@@ -44,20 +45,18 @@ class App extends Component {
     })
   }
 
+  // When a place on the sidebar's list is clicked, find the corresponding marker
   handleSidebarPlaceClick = (place) => {
     const marker = this.state.markerInMapList.filter(marker => marker.id === place.id)
     this.handleMarkerSelected(marker[0])
   }
 
+  // When clicked on a marker or on the sidebar's list, activate this marker and deactivate the previous one
   handleMarkerSelected = (marker) => {
     let previousMarker = this.state.markerInMapActive
     if (marker !== previousMarker) {
       if (Object.keys(previousMarker).length > 0) {
-        previousMarker.setAnimation(window.google.maps.Animation.null)
-        previousMarker.setIcon({
-          url: `${require("./icons/default_marker.png")}`,
-          scaledSize: new window.google.maps.Size(45,45)
-        })
+        this.deactivateMarkerInMap(previousMarker)
       }
       marker.setAnimation(window.google.maps.Animation.BOUNCE)
       marker.setIcon({
@@ -69,8 +68,21 @@ class App extends Component {
     } 
   }
 
+  // Deactivate marker, if another one is selected or the infoWindow is closed
+  deactivateMarkerInMap = (marker) => {
+    console.log(marker)
+    marker.setAnimation(window.google.maps.Animation.null)
+    marker.setIcon({
+      url: `${require("./icons/default_marker.png")}`,
+      scaledSize: new window.google.maps.Size(45,45)
+    })
+  }
+
+  // When clicked on the infoWindow's close icon, close the infoWindow and deactivate the marker
   closeInfoWindow = (infoWindow) => {
     infoWindow.close()
+    this.deactivateMarkerInMap(infoWindow.marker)
+    this.setState({markerInMapActive: {}})
   }
  
   render() {

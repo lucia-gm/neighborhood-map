@@ -121,14 +121,17 @@ main {
 }
 
 .info-window {
-  width: 250px;
+  width: 260px;
   height: 80px;
   display: flex;
   margin-top: 4px;
 }
 
 .info-window img {
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
+  background: #f9f9f9;
 }
 
 .info-window-details {
