@@ -49,6 +49,11 @@ class App extends Component {
   handleSidebarPlaceClick = (place) => {
     const marker = this.state.markerInMapList.filter(marker => marker.id === place.id)
     this.handleMarkerSelected(marker[0])
+    
+    // In small windows close the menu to see the infoWindow
+    if (window.innerWidth < 610) {
+      this.onMenuClick()
+    }
   }
 
   // When clicked on a marker or on the sidebar's list, activate this marker and deactivate the previous one
@@ -63,7 +68,7 @@ class App extends Component {
         url: `${require("./icons/active_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       })
-      
+
       this.setState({markerInMapActive: marker})
     } 
   }
