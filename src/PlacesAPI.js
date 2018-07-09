@@ -1,16 +1,16 @@
 const api = "https://api.foursquare.com/v2/venues"
 
 export const defaultList = [
-  {id: 0, name:'Praza do Obradoiro', location: {lat: 42.880593, lng: -8.545628}},
-  {id: 1, name: 'Mercado de Abastos', location: {lat: 42.879840, lng: -8.541342}},
-  {id: 2, name: 'Parque da Alameda', location: {lat: 42.876943, lng: -8.547609}},
-  {id: 3, name: 'A Maceta', location: {lat: 42.881636, lng: -8.535520}},
-  {id: 4, name: 'Casa Marcelo', location: {lat: 42.880705, lng: -8.546967}},
-  {id: 5, name: 'Zara', location: {lat: 42.876240, lng: -8.544688}},
-  {id: 6, name: 'Follas Novas', location: {lat: 42.875189, lng: -8.549043}},
-  {id: 7, name: 'Momo Pub', location: {lat: 42.879730, lng: -8.540808}},
-  {id: 8, name: 'Café Tertulia', location: {lat: 42.880351, lng: -8.549721}},
-  {id: 9, name: 'Hostal dos reis Católicos', location: {lat: 42.881449, lng: -8.545879}}
+  {id: 0, name: 'Catedral de Santiago de Compostela', location: {lat: 42.880596, lng: -8.544641}, categories: [{ name: "Church", id: "4bf58dd8d48988d132941735"}]},
+  {id: 1, name: 'Abastos 2.0', location: {lat: 42.879965, lng: -8.541556}, categories: [{ name: "Restaurant", id: "4bf58dd8d48988d1c4941735"}]},
+  {id: 2, name: 'Parque da Alameda', location: {lat: 42.876943, lng: -8.547609}, categories: [{ name: "Park", id: "4bf58dd8d48988d163941735"}]},
+  {id: 3, name: 'A Maceta', location: {lat: 42.881636, lng: -8.535520}, categories: [{ name: "Restaurant", id: "4bf58dd8d48988d1c4941735"}]},
+  {id: 4, name: 'Casa Marcelo', location: {lat: 42.880705, lng: -8.546967}, categories: [{ name: "Restaurant", id: "4bf58dd8d48988d1c4941735"}]},
+  {id: 5, name: 'Zara', location: {lat: 42.876240, lng: -8.544688}, categories: [{ name: "Clothing Store", id: "4bf58dd8d48988d108951735"}]},
+  {id: 6, name: 'A Riquela', location: {lat: 42.880043, lng: -8.542223}, categories: [{ name: "Nightlife", id: "4bf58dd8d48988d116941735"}]},
+  {id: 7, name: 'Momo Pub', location: {lat: 42.879730, lng: -8.540808}, categories: [{ name: "Nightlife", id: "4bf58dd8d48988d116941735"}]},
+  {id: 8, name: 'Bodeguilla de San Roque', location: {lat: 42.883752, lng: -8.541923}, categories: [{ name: "Restaurant", id: "4bf58dd8d48988d1c4941735"}]},
+  {id: 9, name: 'Hostal dos reis Católicos', location: {lat: 42.881449, lng: -8.545879}, categories: [{ name: "Hotel", id: "4bf58dd8d48988d1fa931735"}]}
 ]
 
 export const categories = [

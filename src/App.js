@@ -21,8 +21,11 @@ class App extends Component {
 
     PlacesAPI.getAll()
     .then( response => {
-      this.setState({placeList: response.venues})
-      console.log(this.state.placeList)
+      if (Object.keys(response).length > 0) {
+        this.setState({placeList: response.venues})
+      } else {
+        this.setState({placeList: PlacesAPI.defaultList})
+      }
     })
     .catch(error => console.error(error))
   }
