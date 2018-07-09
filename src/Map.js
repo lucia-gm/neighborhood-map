@@ -35,6 +35,7 @@ class Map extends Component {
           }
         ]
       });
+      this.bounds = new window.google.maps.LatLngBounds()
     } catch (error) {
       console.error(error)
     }
@@ -48,6 +49,7 @@ class Map extends Component {
           place={place} 
           markers={this.markers} 
           map={this.map} 
+          bounds={this.bounds}
           key={place.id} 
           markerInMapList={this.props.markerInMapList} 
           handleMarkerSelected={this.props.handleMarkerSelected}/>

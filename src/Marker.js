@@ -2,7 +2,7 @@ import { Component } from 'react';
 import * as PlacesAPI from './PlacesAPI';
 
 class Marker extends Component {
-  
+
   createMarkerInMap = (place) => {
     this.markerInMap = new window.google.maps.Marker({
       map: this.props.map,
@@ -13,13 +13,14 @@ class Marker extends Component {
         url: `${require("./icons/default_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       },
-      // info: this.placeInfo,
       address: (typeof(place.location.address) !== 'undefined') ? place.location.address : 'There is no address available',
       category: (typeof(place.categories) !== 'undefined') ? place.categories[0].name : null,
       photo: ''
     })
 
     this.props.markerInMapList.push(this.markerInMap)
+    this.props.bounds.extend(this.markerInMap.position)
+    this.props.map.fitBounds(this.props.bounds)
     this.markerInMap.addListener('click',this.props.handleMarkerSelected.bind(this, this.markerInMap))
   }
 
@@ -35,7 +36,6 @@ class Marker extends Component {
       photo = `${photoLink.prefix}100x100${photoLink.suffix}`} )
     .catch(error => console.log("Sorry! We can't get the foto details"))
     .then(response => {
-      console.log('photo', photo)
       this.markerInMap.photo = photo
     })
   }
@@ -53,7 +53,6 @@ class Marker extends Component {
   }
 
   render() {
-    console.log('markers',this.props.markerInMapList)
     return null 
   }
 }
