@@ -151,9 +151,10 @@ main {
 /* Footer */
 footer {
   height: 50px;
-  background-color: #0d1c2b;
+  display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
+  background-color: #0d1c2b;
 }
 
 footer img {
