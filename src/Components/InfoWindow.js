@@ -13,7 +13,7 @@ class InfoWindow extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     let content =  
-    `<div class="info-window">
+    `<div class="info-window" aria-label="infowindow">
       <img src="${nextProps.markerInMapActive.photo}" alt="${nextProps.markerInMapActive.name}"/>
           <div class="info-window-details">  
             <h4 class="info-window-title">${nextProps.markerInMapActive.name}</h4>

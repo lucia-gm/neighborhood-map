@@ -71,7 +71,6 @@ class App extends Component {
         url: `${require("../icons/active_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       })
-
       this.setState({markerInMapActive: marker})
     } 
   }
@@ -99,7 +98,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="app-header">
-          <div id="burger-icon" onClick={this.onMenuClick}>
+          <div id="burger-icon" role="button" tabindex="0" aria-label="menu" onClick={this.onMenuClick}>
             <div className="burger-icon-bar1"></div>
             <div className="burger-icon-bar2"></div>
             <div className="burger-icon-bar3"></div>

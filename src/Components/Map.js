@@ -43,7 +43,7 @@ class Map extends Component {
 
   render() {
     return(
-      <div id={this.mapIdDOM}>
+      <div id={this.mapIdDOM} aria-label="map">
         {this.props.placeList.map(place => (
           <Marker 
           place={place} 
