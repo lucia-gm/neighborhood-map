@@ -29,7 +29,7 @@ ul {
 #burger-icon {
   display: inline-block;
   cursor: pointer;
-  position: relative;
+  position: absolute;
   padding-left: 20px;
 }
 
@@ -65,7 +65,7 @@ ul {
 /* Main */
 main {
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 110px);
 }
 
 /* Sidebar */
@@ -146,4 +146,16 @@ main {
 
 .info-window-details li {
   padding: 5px 0 4px;
+}
+
+/* Footer */
+footer {
+  height: 50px;
+  background-color: #0d1c2b;
+  align-items: center;
+  justify-content: center
+}
+
+footer img {
+  height: 40px;
 }

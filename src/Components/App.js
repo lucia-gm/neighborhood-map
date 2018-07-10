@@ -98,7 +98,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="app-header">
-          <div id="burger-icon" role="button" tabindex="0" aria-label="menu" onClick={this.onMenuClick}>
+          <div id="burger-icon" role="button" tabIndex="0" aria-label="menu" onClick={this.onMenuClick}>
             <div className="burger-icon-bar1"></div>
             <div className="burger-icon-bar2"></div>
             <div className="burger-icon-bar3"></div>
@@ -118,6 +118,9 @@ class App extends Component {
             closeInfoWindow={this.closeInfoWindow}
             /> 
         </main>
+        <footer>
+          <img src={require('../icons/foursquare-logo.png')} alt="Foursquare logo"/>
+        </footer>
       </div>
     );
   }
