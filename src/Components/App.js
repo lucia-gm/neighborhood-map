@@ -27,7 +27,7 @@ class App extends Component {
         this.setState({placeList: PlacesAPI.defaultList})
       }
     })
-    .catch(error => console.error(error))
+    .catch(error => alert.error(error))
   }
 
   onMenuClick = () => {
@@ -78,7 +78,6 @@ class App extends Component {
 
   // Deactivate marker, if another one is selected or the infoWindow is closed
   deactivateMarkerInMap = (marker) => {
-    console.log(marker)
     marker.setAnimation(window.google.maps.Animation.null)
     marker.setIcon({
       url: `${require("../icons/default_marker.png")}`,
