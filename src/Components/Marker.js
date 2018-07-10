@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import * as PlacesAPI from './PlacesAPI';
+import * as PlacesAPI from '../PlacesAPI';
 
 class Marker extends Component {
 
@@ -10,7 +10,7 @@ class Marker extends Component {
       name: place.name,
       id: place.id,
       icon: {
-        url: `${require("./icons/default_marker.png")}`,
+        url: `${require("../icons/default_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       },
       address: (typeof(place.location.address) !== 'undefined') ? place.location.address : 'There is no address available',

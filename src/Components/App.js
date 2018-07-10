@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Map from './Map';
 import Sidebar from './Sidebar';
-import * as PlacesAPI from './PlacesAPI';
-import './App.css';
+import * as PlacesAPI from '../PlacesAPI';
+import '../css/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -68,7 +68,7 @@ class App extends Component {
       }
       marker.setAnimation(window.google.maps.Animation.BOUNCE)
       marker.setIcon({
-        url: `${require("./icons/active_marker.png")}`,
+        url: `${require("../icons/active_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       })
 
@@ -81,7 +81,7 @@ class App extends Component {
     console.log(marker)
     marker.setAnimation(window.google.maps.Animation.null)
     marker.setIcon({
-      url: `${require("./icons/default_marker.png")}`,
+      url: `${require("../icons/default_marker.png")}`,
       scaledSize: new window.google.maps.Size(45,45)
     })
   }

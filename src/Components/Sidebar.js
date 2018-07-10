@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {categories} from './PlacesAPI';
+import {categories} from '../PlacesAPI';
 
 class Sidebar extends Component {
   render() {
