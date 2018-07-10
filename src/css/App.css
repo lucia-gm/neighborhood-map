@@ -90,6 +90,8 @@ main {
   height: 30px;
   width: 200px;
   font-size: 14px;
+  background-color: #fcfcfc;
+  cursor: pointer;
 }
 
 .places-list {
@@ -139,9 +141,9 @@ main {
 }
 
 .info-window-title {
-  margin: 2px 0;
+  margin: 0 0 5px;
 }
 
 .info-window-details li {
-  padding: 5px 0;
+  padding: 5px 0 4px;
 }
