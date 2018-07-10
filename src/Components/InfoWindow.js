@@ -24,6 +24,7 @@ class InfoWindow extends Component {
           </div>  
     </div>`
 
+    // Open the infoWindow of the selected place/marker
     if (nextProps.markerInMapActive !== this.props.markerInMapActive & Object.keys(nextProps.markerInMapActive).length > 0) {
       this.infoWindow.marker = nextProps.markerInMapActive
       this.infoWindow.setContent(content)

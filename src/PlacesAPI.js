@@ -23,6 +23,7 @@ export const categories = [
 ]
 
 const apiCategoriesId = categories.map(category => category.id)
+
 const apiParams = {
   categoryId: apiCategoriesId,  
   areaLatLng: "42.880419,-8.545693",
@@ -30,16 +31,19 @@ const apiParams = {
   intent: "browse",  // To find venues in a given area
   clientId: "3P4X2ESFH3NOOSCM1NAMXLBURGCKHLSWD3H3YHDDMEK4T4JC",
   clientSecret: "BQLAUTTC4OENGUL3WKB3MB3PPCDV0LXTXT20DVO53355KF5F",
-  version: "20180626"
+  version: "20180626",
+  limit: "30"
 }
 
+// Get the list of venues
 export const getAll = () =>
-  fetch(`${api}/search?ll=${apiParams.areaLatLng}&radius=${apiParams.radius}&intent=${apiParams.intent}&client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&categoryId=${apiParams.categoryId}`)
+  fetch(`${api}/search?ll=${apiParams.areaLatLng}&radius=${apiParams.radius}&intent=${apiParams.intent}&client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&categoryId=${apiParams.categoryId}&limit=${apiParams.limit}`)
    .then(response => response.json())
    .then(data => data.response)
 
+// Get photo of the venue
 export const getPhoto = (venue) =>
   fetch(`${api}/${venue}/photos?client_id=${apiParams.clientId}&client_secret=${apiParams.clientSecret}&v=${apiParams.version}&limit=1`)
     .then(response => response.json())
-    .then(data => data.response.photos) // To get photo details
+    .then(data => data.response.photos) 
 
