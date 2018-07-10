@@ -68,7 +68,7 @@ class App extends Component {
       }
       marker.setAnimation(window.google.maps.Animation.BOUNCE)
       marker.setIcon({
-        url: `${require("../icons/active_marker.png")}`,
+        url: `${require("../images/active_marker.png")}`,
         scaledSize: new window.google.maps.Size(45,45)
       })
       this.setState({markerInMapActive: marker})
@@ -79,7 +79,7 @@ class App extends Component {
   deactivateMarkerInMap = (marker) => {
     marker.setAnimation(window.google.maps.Animation.null)
     marker.setIcon({
-      url: `${require("../icons/default_marker.png")}`,
+      url: `${require("../images/default_marker.png")}`,
       scaledSize: new window.google.maps.Size(45,45)
     })
   }
@@ -119,7 +119,7 @@ class App extends Component {
             /> 
         </main>
         <footer>
-          <img src={require('../icons/foursquare-logo.png')} alt="Foursquare logo"/>
+          <img src={require('../images/foursquare-logo.png')} alt="Foursquare logo"/>
         </footer>
       </div>
     );
