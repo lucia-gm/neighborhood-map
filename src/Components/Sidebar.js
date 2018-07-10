@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {categories} from './VenuesAPI';
+import {categories} from '../PlacesAPI';
 
 class Sidebar extends Component {
   render() {
@@ -7,17 +7,17 @@ class Sidebar extends Component {
       <div id="sidebar">
         <div className="filter">  
           <select defaultValue="all" onChange={event => {
-            this.props.onUpdateCategory(event.target.value)
+            this.props.onSidebarFilter(event.target.value)
           }}>
             <option value="all">All</option>
             {categories.map( (category,i )=> (
-              <option value={Object.values(category)} key={i}>{Object.keys(category)}</option>
+              <option value={category.id} key={i}>{category.name}</option>
             ))}
           </select>
         </div>  
         <ul className="places-list">
-          {this.props.places.map( place => 
-            <li key={place.id}>{place.name}</li>
+          {this.props.placeList.map( place => 
+            <li key={place.id} role="button" tabIndex="0" onClick={this.props.sidebarPlaceClick.bind(this, place)}>{place.name}</li>
           )}
         </ul>
       </div>
