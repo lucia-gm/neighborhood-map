@@ -16,6 +16,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    window.gm_authFailure = this.gm_authFailure
     this.menu = document.getElementById('burger-icon')
     this.sidebar = document.getElementById('sidebar')
 
@@ -90,6 +91,12 @@ class App extends Component {
     this.deactivateMarkerInMap(infoWindow.marker)
     this.setState({markerInMapActive: {}})
   }
+
+  // Alert the user in case of Google Maps authentication error
+  gm_authFailure = ()=> {
+    window.alert("Google Maps error!")
+}
+
  
   render() {
     const {placeList, placeListFiltered, markerInMapList, markerInMapActive} = this.state
