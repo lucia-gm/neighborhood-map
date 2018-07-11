@@ -4,9 +4,9 @@ import {categories} from '../PlacesAPI';
 class Sidebar extends Component {
   render() {
     return (
-      <div id="sidebar">
-        <div className="filter">  
-          <select defaultValue="all" onChange={event => {
+      <div id="sidebar" role="navigation">
+        <div className="filter" role="menu">  
+          <select aria-label="Choose a category" defaultValue="all" onChange={event => {
             this.props.onSidebarFilter(event.target.value)
           }}>
             <option value="all">All</option>
@@ -15,7 +15,7 @@ class Sidebar extends Component {
             ))}
           </select>
         </div>  
-        <ul className="places-list">
+        <ul className="places-list" role="listbox">
           {this.props.placeList.map( place => 
             <li key={place.id} role="button" tabIndex="0" onClick={this.props.sidebarPlaceClick.bind(this, place)}>{place.name}</li>
           )}
