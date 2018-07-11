@@ -28,7 +28,7 @@ class App extends Component {
         this.setState({placeList: PlacesAPI.defaultList})
       }
     })
-    .catch(error => alert.error(error))
+    .catch(error => window.alert(error))
   }
 
   onMenuClick = () => {

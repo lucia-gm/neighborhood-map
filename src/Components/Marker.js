@@ -34,7 +34,7 @@ class Marker extends Component {
     .then(response => {
       let photoLink = response.items[0]
       photo = `${photoLink.prefix}100x100${photoLink.suffix}`} )
-    .catch(error => console.log("Sorry! We can't get the foto details"))
+    .catch(error => photo = false)
     .then(response => {
       this.markerInMap.photo = photo
     })

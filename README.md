@@ -16,8 +16,6 @@ Clicking on the menu button displays a sidebar with a list of the locations and 
 
 Clicking a location on the list displays the information about the location, and animates its associated map marker.
 
-When available in the browser, the site uses a service worker, so visited pages are rendered when there is no network access.
-
 
 ## How To Run The Application
 

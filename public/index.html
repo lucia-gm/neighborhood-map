@@ -19,7 +19,6 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoJzEbxFZTym4G88j3d75luuj_xA985Xc"></script>
     <title>Explore Santiago</title>
   </head>
   <body>
@@ -37,5 +36,12 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+        function handleGoogleMapsError() {
+          cwindow.alert("Google Maps error!")
+        } 
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoJzEbxFZTym4G88j3d75luuj_xA985Xc" onerror="handleGoogleMapsError()"></script>
+
   </body>
 </html>
