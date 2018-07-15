@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super()
     this.state = {
-      placeList: [], 
+      placeList: [],
       placeListFiltered: [],
       markerInMapList: [],
       markerInMapActive: {},
@@ -44,7 +44,7 @@ class App extends Component {
     } else {
       placesFiltered = this.state.placeList.filter( place => place.categories[0].id === value)
     }
-    this.setState({ 
+    this.setState({
       placeListFiltered: placesFiltered,
     })
   }
@@ -53,7 +53,7 @@ class App extends Component {
   handleSidebarPlaceClick = (place) => {
     const marker = this.state.markerInMapList.filter(marker => marker.id === place.id)
     this.handleMarkerSelected(marker[0])
-    
+
     // In small windows close the menu to see the infoWindow
     if (window.innerWidth < 610) {
       this.onMenuClick()
@@ -73,7 +73,7 @@ class App extends Component {
         scaledSize: new window.google.maps.Size(45,45)
       })
       this.setState({markerInMapActive: marker})
-    } 
+    }
   }
 
   // Deactivate marker, if another one is selected or the infoWindow is closed
@@ -95,12 +95,23 @@ class App extends Component {
   // Alert the user in case of Google Maps authentication error
   gm_authFailure = ()=> {
     window.alert("Google Maps error!")
-}
+  }
 
- 
+
   render() {
-    const {placeList, placeListFiltered, markerInMapList, markerInMapActive} = this.state
-    let places = (placeListFiltered.length >= 1) ? placeListFiltered : placeList
+    const {placeList, placeListFiltered, markerInMapList, markerInMapActive} = this.state;
+    let places = (placeListFiltered.length >= 1) ? placeListFiltered : placeList;
+    let MapWrapper;
+
+    if (window.GMAPS_SUCCESS) {
+      MapWrapper = <Map
+            placeList={places}
+            markerInMapList={markerInMapList}
+            handleMarkerSelected={this.handleMarkerSelected}
+            markerInMapActive={markerInMapActive}
+            closeInfoWindow={this.closeInfoWindow}
+            />
+    }
 
     return (
       <div className="App">
@@ -113,17 +124,11 @@ class App extends Component {
           <h1 className="app-title">Explore Santiago</h1>
         </header>
         <main>
-          <Sidebar 
-            placeList={places} 
-            onSidebarFilter={this.handleSidebarFilter} 
-            sidebarPlaceClick={this.handleSidebarPlaceClick}/> 
-          <Map 
-            placeList={places} 
-            markerInMapList={markerInMapList} 
-            handleMarkerSelected={this.handleMarkerSelected} 
-            markerInMapActive={markerInMapActive}
-            closeInfoWindow={this.closeInfoWindow}
-            /> 
+          <Sidebar
+            placeList={places}
+            onSidebarFilter={this.handleSidebarFilter}
+            sidebarPlaceClick={this.handleSidebarPlaceClick}/>
+          {MapWrapper}
         </main>
         <footer>
           <img src={require('../images/foursquare-logo.png')} alt="Foursquare logo"/>

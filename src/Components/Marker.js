@@ -53,7 +53,7 @@ class Marker extends Component {
   }
 
   render() {
-    return null 
+    return null
   }
 }
 

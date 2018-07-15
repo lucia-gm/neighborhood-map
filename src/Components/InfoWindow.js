@@ -3,29 +3,25 @@ import { Component } from 'react'
 class InfoWindow extends Component {
 
   componentWillMount = () => {
-    try {
-      this.infoWindow = new window.google.maps.InfoWindow({
-        position: {lat: 42.880593, lng: -8.545628},
-        map: this.props.map
-      })
-
-      this.infoWindow.addListener('closeclick', this.props.closeInfoWindow.bind(this, this.infoWindow))
-    } catch(error) {
-      window.alert('Google Maps error. Please, refresh the page')
-    }
+    this.infoWindow = new window.google.maps.InfoWindow({
+      position: {lat: 42.880593, lng: -8.545628},
+      map: this.props.map
+    })
+    this.infoWindow.addListener('closeclick', this.props.closeInfoWindow.bind(this, this.infoWindow))
+    this.infoWindow.close()
   }
 
   componentWillReceiveProps = (nextProps) => {
-    let content =  
+    let content =
     `<div class="info-window" aria-label="infowindow" role="section">
       <img src="${nextProps.markerInMapActive.photo}" alt="${(!nextProps.markerInMapActive.photo) ? 'Photo unavailable' : nextProps.markerInMapActive.name}"/>
-          <div class="info-window-details">  
+          <div class="info-window-details">
             <h4 class="info-window-title">${nextProps.markerInMapActive.name}</h4>
             <ul aria-label="information about the location">
                 <li aria-label="address">${nextProps.markerInMapActive.address}</li>
                 <li>Category: ${nextProps.markerInMapActive.category}</li>
             </ul>
-          </div>  
+          </div>
     </div>`
 
     // Open the infoWindow of the selected place/marker
@@ -35,8 +31,6 @@ class InfoWindow extends Component {
       this.infoWindow.open(nextProps.map, nextProps.markerInMapActive)
     }
   }
-
-  
 
   render() {
     return null

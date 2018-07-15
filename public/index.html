@@ -37,11 +37,17 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
+        window.GMAPS_SUCCESS = false;
+
         function handleGoogleMapsError() {
-          cwindow.alert("Google Maps error!")
-        } 
+          window.alert("Google Maps error!")
+        }
+
+        function handleGoogleMapsSuccess() {
+          window.GMAPS_SUCCESS = true;
+        }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoJzEbxFZTym4G88j3d75luuj_xA985Xc" onerror="handleGoogleMapsError()"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoJzEbxFZTym4G88j3d75luuj_xA985Xc&callback=handleGoogleMapsSuccess" onerror="handleGoogleMapsError()"></script>
 
   </body>
 </html>
