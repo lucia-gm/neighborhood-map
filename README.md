@@ -4,7 +4,7 @@ This project is part of the Udacity Front-End Nanodegree.
 
 A single page application featuring a map of my hometown, including highlighted locations.
 
-![Preview](src/images/exploreSantiago.mov.gif)
+![Preview](src/images/exploreSantiago.gif)
 
 
 ## Porject Overview
