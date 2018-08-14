@@ -8,7 +8,7 @@ A single page application featuring a map of my hometown, including highlighted 
 
 
 ## Porject Overview
-Explore Santiago has been build from scracth using [React](https://github.com/facebook/create-react-app). The application features a map of Santiago de Compostela and markers on the highlighted locations. 
+Explore Santiago has been built from scracth using [React](https://github.com/facebook/create-react-app). The application features a map of Santiago de Compostela and markers on the highlighted locations. 
 
 Clicking on a map marker displays information about the location (name, photo, address and category). 
 
