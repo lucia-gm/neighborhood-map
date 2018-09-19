@@ -37,7 +37,6 @@ class Map extends Component {
       ]
     });
     this.bounds = new window.google.maps.LatLngBounds()
-    this.mapIsReady = true
     this.setState({ mapIsReady: true })
   }
 
